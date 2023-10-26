@@ -5,14 +5,6 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Maui", "FlashCards.Maui\FlashCards.Maui.csproj", "{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Infrastructure", "FlashCards.Infrastructure\FlashCards.Infrastructure.csproj", "{D53DF027-4BB2-4966-8F0F-21FB894D39D8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Domain", "FlashCards.Domain\FlashCards.Domain.csproj", "{631803E7-02B8-4D07-9786-0EEF399767AB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Application", "FlashCards.Application\FlashCards.Application.csproj", "{525A1AB4-55DC-4E9D-A550-7477309D6B68}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.Server", "FlashCards.Server\FlashCards.Server.csproj", "{54F4E826-D991-4366-A31A-D6F4C7E90B4C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,22 +17,6 @@ Global
 		{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{D53DF027-4BB2-4966-8F0F-21FB894D39D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D53DF027-4BB2-4966-8F0F-21FB894D39D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D53DF027-4BB2-4966-8F0F-21FB894D39D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D53DF027-4BB2-4966-8F0F-21FB894D39D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{631803E7-02B8-4D07-9786-0EEF399767AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{631803E7-02B8-4D07-9786-0EEF399767AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{631803E7-02B8-4D07-9786-0EEF399767AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{631803E7-02B8-4D07-9786-0EEF399767AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{525A1AB4-55DC-4E9D-A550-7477309D6B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{525A1AB4-55DC-4E9D-A550-7477309D6B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{525A1AB4-55DC-4E9D-A550-7477309D6B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{525A1AB4-55DC-4E9D-A550-7477309D6B68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54F4E826-D991-4366-A31A-D6F4C7E90B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54F4E826-D991-4366-A31A-D6F4C7E90B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54F4E826-D991-4366-A31A-D6F4C7E90B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54F4E826-D991-4366-A31A-D6F4C7E90B4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
