@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	<RootNamespace>FlashCards.Core.Application</RootNamespace>
+	<AssemblyName>FlashCards.Core.Application</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlashCards.Domain\FlashCards.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Maui", "FlashCards.Maui\FlashCards.Maui.csproj", "{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Domain", "FlashCards.Domain\FlashCards.Domain.csproj", "{8FBB0FF2-0A60-45C7-82A6-0591C9609650}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Application", "FlashCards.Application\FlashCards.Application.csproj", "{BABB05D9-D383-4812-989F-2A5D6F721121}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Infrastructure", "FlashCards.Infrastructure\FlashCards.Infrastructure.csproj", "{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,18 @@ Global
 		{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E14E59C-80B7-4B4D-82DD-FB7C15305B55}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8FBB0FF2-0A60-45C7-82A6-0591C9609650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FBB0FF2-0A60-45C7-82A6-0591C9609650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FBB0FF2-0A60-45C7-82A6-0591C9609650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FBB0FF2-0A60-45C7-82A6-0591C9609650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABB05D9-D383-4812-989F-2A5D6F721121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABB05D9-D383-4812-989F-2A5D6F721121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABB05D9-D383-4812-989F-2A5D6F721121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABB05D9-D383-4812-989F-2A5D6F721121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
