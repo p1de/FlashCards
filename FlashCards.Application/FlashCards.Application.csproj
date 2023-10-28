@@ -12,4 +12,16 @@
     <ProjectReference Include="..\FlashCards.Domain\FlashCards.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\FlashCards\Commands\" />
+    <Folder Include="CQRS\Users\Commands\" />
+    <Folder Include="CQRS\Users\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+  </ItemGroup>
+
 </Project>

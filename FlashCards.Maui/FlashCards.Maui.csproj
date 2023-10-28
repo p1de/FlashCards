@@ -54,7 +54,7 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>
 
@@ -63,7 +63,13 @@
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+	</ItemGroup>
+
 	<ItemGroup>
+	  <ProjectReference Include="..\FlashCards.Application\FlashCards.Application.csproj" />
+	  <ProjectReference Include="..\FlashCards.Contracts\FlashCards.Contracts.csproj" />
 	  <ProjectReference Include="..\FlashCards.Infrastructure\FlashCards.Infrastructure.csproj" />
 	</ItemGroup>
 

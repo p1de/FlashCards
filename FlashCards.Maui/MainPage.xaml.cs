@@ -1,24 +1,24 @@
-﻿namespace FlashCards.Maui;
+﻿using FlashCards.Contracts.Authentication;
+using FlashCards.Domain.Entities.FlashCards;
+using FlashCards.Infrastructure.Common.Persistance.Interfaces;
+using FlashCards.Maui.Managers.Interfaces;
+using System.Net;
+
+namespace FlashCards.Maui;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	IAuthenticationManager _authenticationManager;
 
-	public MainPage()
+    public MainPage(IAuthenticationManager authenticationManager)
 	{
+		_authenticationManager = authenticationManager;
 		InitializeComponent();
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	private void OnRegisterButtonClicked(object sender, EventArgs e)
 	{
-		count++;
-
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
+		_authenticationManager.Register(new RegisterRequest(username.Text, email.Text, password.Text));
 	}
 }
 

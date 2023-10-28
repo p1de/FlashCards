@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Application", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards.Infrastructure", "FlashCards.Infrastructure\FlashCards.Infrastructure.csproj", "{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.Contracts", "FlashCards.Contracts\FlashCards.Contracts.csproj", "{20A63192-4529-4A8D-851C-EC0A10FAC6E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AD8E9C9-AD92-4BEB-B6F8-38326A849083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20A63192-4529-4A8D-851C-EC0A10FAC6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A63192-4529-4A8D-851C-EC0A10FAC6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20A63192-4529-4A8D-851C-EC0A10FAC6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20A63192-4529-4A8D-851C-EC0A10FAC6E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
