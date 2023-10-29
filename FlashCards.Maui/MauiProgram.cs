@@ -20,8 +20,11 @@ public static class MauiProgram
             });
 
         var assembly = Assembly.GetExecutingAssembly();
-        using var stream = assembly.GetManifestResourceStream("FlashCards.Maui.appsettings.json");
-
+        var appsettingsResourceName = "FlashCards.Maui.appsettings.json";
+#if DEBUG
+        appsettingsResourceName = "FlashCards.Maui.appsettings.Development.json";
+#endif
+        using var stream = assembly.GetManifestResourceStream(appsettingsResourceName);
         var config = new ConfigurationBuilder()
             .AddJsonStream(stream)
             .Build();
