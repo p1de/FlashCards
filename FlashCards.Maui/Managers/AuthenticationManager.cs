@@ -6,7 +6,7 @@ namespace FlashCards.Maui.Managers
 {
     public class AuthenticationManager : IAuthenticationManager
     {
-        private IAuthenticationService _authenticationService;
+        private readonly IAuthenticationService _authenticationService;
 
         public AuthenticationManager(IAuthenticationService authenticationService)
         {

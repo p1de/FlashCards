@@ -8,9 +8,9 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDB
     public class MongoDbContext : IDbContext
     {
         private readonly ILogger<MongoDbContext> _logger;
-        private IMongoClient _client;
-        private IMongoDatabase _database;
-        private IAppSettings _appSettings;
+        private readonly IMongoClient _client;
+        private readonly IMongoDatabase _database;
+        private readonly IAppSettings _appSettings;
 
         public MongoDbContext(IAppSettings appSettings, ILogger<MongoDbContext> logger)
         {

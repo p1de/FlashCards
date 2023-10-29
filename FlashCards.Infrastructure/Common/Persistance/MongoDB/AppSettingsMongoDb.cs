@@ -5,7 +5,7 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDB
 {
     public class AppSettingsMongoDb : IAppSettings
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public AppSettingsMongoDb(IConfiguration configuration)
         {
