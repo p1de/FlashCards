@@ -1,4 +1,5 @@
 ﻿using FlashCards.Maui.Managers.Interfaces;
+using FlashCards.Maui.Pages;
 
 namespace FlashCards.Maui
 {
@@ -13,7 +14,7 @@ namespace FlashCards.Maui
 
         public static IServiceCollection AddPages(this IServiceCollection services)
         {
-            services.AddTransient<MainPage>();
+            services.AddTransient<RegisterPage>();
 
             return services;
         }
