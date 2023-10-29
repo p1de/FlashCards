@@ -18,7 +18,7 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDB
             _appSettings = appSettings;
             try
             {
-                Lazy<MongoClient> lazyClient = new Lazy<MongoClient>(new MongoClient(_appSettings.MongoDbConnectionString));
+                Lazy<MongoClient> lazyClient = new(new MongoClient(_appSettings.MongoDbConnectionString));
                 _client = lazyClient.Value;
                 _database = _client.GetDatabase(_appSettings.MongoDBdatabase);
             }
