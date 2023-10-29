@@ -23,7 +23,7 @@ namespace FlashCards.Core.Application.Services.Authentication
             if (_userRepository.GetItemByKeyAsync("Email", email).Result is not User user || (user.Password != password))
             {
                 _logger.LogError("Invalid email or password");
-                return new AuthenticationResult(Guid.Empty, "", email, "");
+                return new AuthenticationResult(Guid.Empty, string.Empty, email, string.Empty);
             }
 
             var token = _jwtTokenGenerator.GenerateJwtToken(user.Id, user.Username);
@@ -36,13 +36,13 @@ namespace FlashCards.Core.Application.Services.Authentication
             if (_userRepository.GetItemByKeyAsync("Email", email).Result is not null)
             {
                 _logger.LogError("User with given email already exists.");
-                return new AuthenticationResult(Guid.Empty, username, email, "");
+                return new AuthenticationResult(Guid.Empty, username, string.Empty, string.Empty);
             }
 
             if (_userRepository.GetItemByKeyAsync("Username", username).Result is not null)
             {
                 _logger.LogError("User with given username already exists.");
-                return new AuthenticationResult(Guid.Empty, username, email, "");
+                return new AuthenticationResult(Guid.Empty, string.Empty, email, string.Empty);
             }
 
             var user = new User

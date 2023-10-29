@@ -7,7 +7,7 @@ namespace FlashCards.Core.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
 
             return services;
         }
