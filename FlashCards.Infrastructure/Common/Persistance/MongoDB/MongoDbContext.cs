@@ -1,32 +1,34 @@
 ﻿using FlashCards.Infrastructure.Common.Interfaces;
 using FlashCards.Infrastructure.Common.Persistance.Interfaces;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace FlashCards.Infrastructure.Common.Persistance.MongoDB
 {
     public class MongoDbContext : IDbContext
     {
+        private readonly ILogger<MongoDbContext> _logger;
         private IMongoClient _client;
         private IMongoDatabase _database;
         private IAppSettings _appSettings;
 
-        public MongoDbContext(IAppSettings appSettings)
+        public MongoDbContext(IAppSettings appSettings, ILogger<MongoDbContext> logger)
         {
+            _logger = logger;
+            _appSettings = appSettings;
             try
             {
-                _appSettings = appSettings;
                 Lazy<MongoClient> lazyClient = new Lazy<MongoClient>(new MongoClient(_appSettings.MongoDbConnectionString));
                 _client = lazyClient.Value;
                 _database = _client.GetDatabase(_appSettings.MongoDBdatabase);
             }
             catch (Exception e)
             {
-                Console.WriteLine("There was a problem connecting to your " +
+                _logger.LogError("There was a problem connecting to your " +
                     "Atlas cluster. Check that the URI includes a valid " +
                     "username and password, and that your IP address is " +
                     $"in the Access List. Message: {e.Message}");
-                Console.WriteLine(e);
-                Console.WriteLine();
+                _logger.LogError(message: "Exception: ", exception: e);
                 throw;
             }
         }
