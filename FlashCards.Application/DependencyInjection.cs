@@ -1,4 +1,4 @@
-﻿using FlashCards.Core.Application.Services.Authentication;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlashCards.Core.Application
@@ -7,7 +7,7 @@ namespace FlashCards.Core.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
             return services;
         }

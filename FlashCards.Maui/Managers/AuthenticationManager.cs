@@ -1,23 +1,24 @@
 ﻿using FlashCards.Contracts.Authentication;
-using FlashCards.Core.Application.Services.Authentication;
+using FlashCards.Core.Application.CQRS.Authentication.Commands.Register;
+using FlashCards.Core.Application.CQRS.Authentication.Queries.Login;
 using FlashCards.Maui.Managers.Interfaces;
+using MediatR;
 
 namespace FlashCards.Maui.Managers
 {
     public class AuthenticationManager : IAuthenticationManager
     {
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IMediator _mediator;
 
-        public AuthenticationManager(IAuthenticationService authenticationService)
+        public AuthenticationManager(IMediator mediator)
         {
-            _authenticationService = authenticationService;
+            _mediator = mediator;
         }
 
-        public AuthenticationResponse Login(LoginRequest request)
+        public async Task<AuthenticationResponse> Login(LoginRequest request)
         {
-            var authenticationResult = _authenticationService.Login(
-                request.Email,
-                request.Password);
+            var query = new LoginQuery(request.Email, request.Password);
+            var authenticationResult = await _mediator.Send(query);
 
             var response = new AuthenticationResponse(
                 authenticationResult.Id,
@@ -28,12 +29,10 @@ namespace FlashCards.Maui.Managers
             return response;
         }
 
-        public AuthenticationResponse Register(RegisterRequest request)
+        public async Task<AuthenticationResponse> Register(RegisterRequest request)
         {
-            var authenticationResult = _authenticationService.Register(
-                request.Username,
-                request.Email,
-                request.Password);
+            var command = new RegisterCommand(request.Username, request.Email, request.Password);
+            var authenticationResult = await _mediator.Send(command);
 
             var response = new AuthenticationResponse(
                 authenticationResult.Id,

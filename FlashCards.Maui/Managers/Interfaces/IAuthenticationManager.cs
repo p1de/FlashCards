@@ -4,7 +4,7 @@ namespace FlashCards.Maui.Managers.Interfaces
 {
     public interface IAuthenticationManager
     {
-        AuthenticationResponse Login(LoginRequest request);
-        AuthenticationResponse Register(RegisterRequest request);
+        Task<AuthenticationResponse> Login(LoginRequest request);
+        Task<AuthenticationResponse> Register(RegisterRequest request);
     }
 }

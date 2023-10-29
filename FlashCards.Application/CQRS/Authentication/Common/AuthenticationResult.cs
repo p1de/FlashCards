@@ -1,4 +1,4 @@
-﻿namespace FlashCards.Core.Application.Services.Authentication
+﻿namespace FlashCards.Core.Application.CQRS.Authentication.Common
 {
     public record AuthenticationResult(
         Guid Id,

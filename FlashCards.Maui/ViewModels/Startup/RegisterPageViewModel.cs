@@ -29,7 +29,7 @@ namespace FlashCards.Maui.ViewModels.Startup
         {
             if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
             {
-                var response = _authenticationManager.Register(new RegisterRequest(Username, Email, Password));
+                var response = await _authenticationManager.Register(new RegisterRequest(Username, Email, Password));
 
                 if (response.Token != string.Empty)
                 {
