@@ -29,25 +29,33 @@ namespace FlashCards.Maui.ViewModels.Startup
         {
             if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
             {
-                var response = await _authenticationManager.Register(new RegisterRequest(Username, Email, Password));
-
-                if (response.Token != string.Empty)
+                NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+                if (accessType == NetworkAccess.Internet)
                 {
-                    await Shell.Current.DisplayAlert("Success", "Registered successfully", "OK");
-                    if (Preferences.ContainsKey(nameof(App.UserDetails)))
+                    var response = await _authenticationManager.Register(new RegisterRequest(Username, Email, Password));
+
+                    if (response.Token != string.Empty)
                     {
-                        Preferences.Remove(nameof(App.UserDetails));
-                    }
+                        await Shell.Current.DisplayAlert("Success", "Registered successfully", "OK");
+                        if (Preferences.ContainsKey(nameof(App.UserDetails)))
+                        {
+                            Preferences.Remove(nameof(App.UserDetails));
+                        }
 
-                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                    }
+                    else if (response.Username == string.Empty)
+                    {
+                        await Shell.Current.DisplayAlert("Error", "User with given username already exists.", "OK");
+                    }
+                    else if (response.Email == string.Empty)
+                    {
+                        await Shell.Current.DisplayAlert("Error", "User with given email already exists.", "OK");
+                    }
                 }
-                else if (response.Username == string.Empty)
+                else
                 {
-                    await Shell.Current.DisplayAlert("Error", "User with given username already exists.", "OK");
-                }
-                else if (response.Email == string.Empty)
-                {
-                    await Shell.Current.DisplayAlert("Error", "User with given email already exists.", "OK");
+                    await Shell.Current.DisplayAlert("Error", "No internet connection.", "OK");
                 }
             }
             else

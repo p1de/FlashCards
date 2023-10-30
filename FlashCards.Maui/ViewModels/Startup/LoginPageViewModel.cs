@@ -29,31 +29,39 @@ namespace FlashCards.Maui.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
             {
-                var response = await _authenticationManager.Login(new LoginRequest(Email, Password));
-
-                if (response.Token != string.Empty)
+                NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+                if (accessType == NetworkAccess.Internet)
                 {
-                    var userDetails = new UserBasicInfo()
-                    {
-                        Email = response.Email,
-                        Username = response.Username
-                    };
+                    var response = await _authenticationManager.Login(new LoginRequest(Email, Password));
 
-                    if (Preferences.ContainsKey(nameof(App.UserDetails)))
+                    if (response.Token != string.Empty)
                     {
-                        Preferences.Remove(nameof(App.UserDetails));
+                        var userDetails = new UserBasicInfo()
+                        {
+                            Email = response.Email,
+                            Username = response.Username
+                        };
+
+                        if (Preferences.ContainsKey(nameof(App.UserDetails)))
+                        {
+                            Preferences.Remove(nameof(App.UserDetails));
+                        }
+
+                        string userDetailStr = JsonConvert.SerializeObject(userDetails);
+                        Preferences.Set(nameof(App.UserDetails), userDetailStr);
+                        App.UserDetails = userDetails;
+                        Shell.Current.FlyoutHeader = new FlyoutHeaderControl();
+
+                        await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
                     }
-
-                    string userDetailStr = JsonConvert.SerializeObject(userDetails);
-                    Preferences.Set(nameof(App.UserDetails), userDetailStr);
-                    App.UserDetails = userDetails;
-                    Shell.Current.FlyoutHeader = new FlyoutHeaderControl();
-
-                    await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Error", "Invalid email or password.", "OK");
+                    }
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Error", "Invalid email or password.", "OK");
+                    await Shell.Current.DisplayAlert("Error", "No internet connection.", "OK");
                 }
             }
             else
