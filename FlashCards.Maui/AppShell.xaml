@@ -6,7 +6,13 @@
     xmlns:startupPages="clr-namespace:FlashCards.Maui.Pages.Startup"
     xmlns:dashboardPages="clr-namespace:FlashCards.Maui.Pages.Dashboard"
     Shell.TabBarIsVisible="False">
-   
+
+    <ShellContent
+        Shell.FlyoutBehavior="Disabled"
+        FlyoutItemIsVisible="False"
+        ContentTemplate="{DataTemplate startupPages:LoadingPage}"
+        Route="LoadingPage" />
+
     <TabBar>
         <Tab>
             <ShellContent
