@@ -32,7 +32,7 @@ namespace FlashCards.Infrastructure.Authentication
 
             var securityToken = new JwtSecurityToken(
                 issuer: "FlashCards",
-                expires: _dateTimeProvider.UtcNow.AddMinutes(60),
+                expires: _dateTimeProvider.UtcNow.AddMinutes(5),
                 claims: claims,
                 signingCredentials: signingCredentials);
 

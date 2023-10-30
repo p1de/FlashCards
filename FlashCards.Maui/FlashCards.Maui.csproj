@@ -79,4 +79,10 @@
 	  <ProjectReference Include="..\FlashCards.Infrastructure\FlashCards.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Pages\Startup\LoadingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

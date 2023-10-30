@@ -47,6 +47,8 @@ namespace FlashCards.Maui.ViewModels
                             Preferences.Remove(nameof(App.UserDetails));
                         }
 
+                        await SecureStorage.SetAsync(nameof(App.Token), response.Token);
+
                         string userDetailStr = JsonConvert.SerializeObject(userDetails);
                         Preferences.Set(nameof(App.UserDetails), userDetailStr);
                         App.UserDetails = userDetails;

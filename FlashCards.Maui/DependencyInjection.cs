@@ -18,10 +18,12 @@ namespace FlashCards.Maui
 
         public static IServiceCollection AddPages(this IServiceCollection services)
         {
+            services.AddTransient<LoadingPage>();
             services.AddTransient<LoginPage>();
             services.AddTransient<RegisterPage>();
             services.AddTransient<DashboardPage>();
 
+            services.AddTransient<LoadingPageViewModel>();
             services.AddTransient<LoginPageViewModel>();
             services.AddTransient<RegisterPageViewModel>();
             services.AddTransient<DashboardPageViewModel>();
