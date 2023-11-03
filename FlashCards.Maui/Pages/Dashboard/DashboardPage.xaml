@@ -5,7 +5,7 @@
              Title="Feed">
     <VerticalStackLayout>
         <Label 
-            Text="{Binding Title}"
+            Text="Welcome"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

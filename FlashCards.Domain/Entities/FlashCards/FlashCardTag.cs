@@ -1,4 +1,5 @@
-﻿using SQLiteNetExtensions.Attributes;
+﻿using FlashCards.Domain.Entities.Interfaces;
+using SQLiteNetExtensions.Attributes;
 
 namespace FlashCards.Domain.Entities.FlashCards
 {

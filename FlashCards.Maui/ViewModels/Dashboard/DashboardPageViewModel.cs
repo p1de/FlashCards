@@ -10,7 +10,6 @@ namespace FlashCards.Maui.ViewModels.Dashboard
     {
         public DashboardPageViewModel() 
         {
-            Title = "Welcome " + App.UserDetails.Username;
         }
     }
 }

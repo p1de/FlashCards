@@ -1,14 +1,15 @@
-﻿using FlashCards.Domain.Entities.Users;
+﻿using FlashCards.Domain.Entities.Interfaces;
+using FlashCards.Domain.Entities.Users;
 using MongoDB.Bson.Serialization.Attributes;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace FlashCards.Domain.Entities.FlashCards
 {
-    public class FlashCard
+    public class FlashCard : IIdentity
     {
         [PrimaryKey]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.Empty.ToString();
         public string? UserId { get; set; }
 
         [OneToOne("UserId")]

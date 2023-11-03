@@ -11,18 +11,15 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Share
     public class ShareFlashCardCommandHandler : IRequestHandler<ShareFlashCardCommand, FlashCardResult>
     {
         private readonly ILogger<ShareFlashCardCommandHandler> _logger;
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IOnlineGenericRepository<FlashCard> _onlineFlashCardRepository;
         private readonly IOnlineGenericRepository<User> _onlineUserRepository;
 
         public ShareFlashCardCommandHandler(
             ILogger<ShareFlashCardCommandHandler> logger,
-            IJwtTokenGenerator jwtTokenGenerator,
             IOnlineGenericRepository<FlashCard> onlineFlashCardRepository,
             IOnlineGenericRepository<User> onlineUserRepository)
         {
             _logger = logger;
-            _jwtTokenGenerator = jwtTokenGenerator;
             _onlineFlashCardRepository = onlineFlashCardRepository;
             _onlineUserRepository = onlineUserRepository;
         }
@@ -32,6 +29,7 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Share
             var user = await _onlineUserRepository.GetItemByKeyAsync("Id", command.UserId);
             var flashCard = new FlashCard
             {
+                Id = Guid.NewGuid().ToString(),
                 UserId = command.UserId,
                 User = new UserBasicInfo(user),
                 Word = command.Word,

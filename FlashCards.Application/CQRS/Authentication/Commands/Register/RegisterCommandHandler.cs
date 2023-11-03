@@ -39,6 +39,7 @@ namespace FlashCards.Core.Application.CQRS.Authentication.Commands.Register
 
             var user = new User
             {
+                Id = Guid.NewGuid().ToString(),
                 Username = command.Username,
                 Email = command.Email,
                 Password = command.Password

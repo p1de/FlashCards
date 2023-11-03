@@ -1,7 +1,11 @@
-﻿using FlashCards.Infrastructure.Common.Persistance.Interfaces;
+﻿using FlashCards.Domain.Entities.Interfaces;
+using FlashCards.Infrastructure.Common.Persistance.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
 {
@@ -33,7 +37,7 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
             }
         }
 
-        public async Task<IEnumerable<TCollection>> GetAllAsync<TCollection>() where TCollection : class, new()
+        public async Task<IEnumerable<TCollection>> GetAsync<TCollection>(int page, int limit) where TCollection : class, IIdentity, new()
         {
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
             if (accessType == NetworkAccess.Internet)
@@ -41,7 +45,11 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
                 IMongoCollection<TCollection> collection;
                 collection = _database.GetCollection<TCollection>(typeof(TCollection).Name + "s");
 
-                return await collection.FindAsync(Builders<TCollection>.Filter.Empty).Result.ToListAsync();
+                var query = collection.Find(Builders<TCollection>.Filter.Empty).Skip(page * limit).Limit(limit).ToListAsync();
+
+                await query;
+
+                return query.Result;
             }
             else
             {
@@ -50,7 +58,7 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
             }
         }
 
-        public async Task<TCollection> GetItemByKeyAsync<TCollection, TFilterType>(string keyName, TFilterType filter) where TCollection : class, new()
+        public async Task<TCollection> GetItemByKeyAsync<TCollection, TFilterType>(string keyName, TFilterType filter) where TCollection : class, IIdentity, new()
         {
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
             if (accessType == NetworkAccess.Internet)
@@ -67,7 +75,7 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
             }
         }
 
-        public async Task<bool> AddItemAsync<TCollection>(TCollection item) where TCollection : class, new()
+        public async Task<bool> AddItemAsync<TCollection>(TCollection item) where TCollection : class, IIdentity, new()
         {
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
             if (accessType == NetworkAccess.Internet)
@@ -78,6 +86,54 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
                 try
                 {
                     await collection.InsertOneAsync(item).ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    return false;
+                    throw;
+                }
+
+                return true;
+            }
+            else
+            {
+                _logger.LogWarning("No internet connection, changes were made locally only.");
+                return false;
+            }
+        }
+
+        public async Task<IEnumerable<TCollection>> GetFilteredAsync<TCollection>(Expression<Func<TCollection, bool>> predicate, int page, int limit) where TCollection : class, IIdentity, new()
+        {
+            NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+            if (accessType == NetworkAccess.Internet)
+            {
+                IMongoCollection<TCollection> collection;
+                collection = _database.GetCollection<TCollection>(typeof(TCollection).Name + "s");
+
+                var query = collection.Find(predicate).Skip(page * limit).Limit(limit).ToListAsync();
+
+                await query;
+
+                return query.Result;
+            }
+            else
+            {
+                _logger.LogWarning("No internet connection, changes were made locally only.");
+                return new List<TCollection>();
+            }
+        }
+
+        public async Task<bool> UpdateItemAsync<TCollection>(TCollection item) where TCollection : class, IIdentity, new()
+        {
+            NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+            if (accessType == NetworkAccess.Internet)
+            {
+                IMongoCollection<TCollection> collection;
+                collection = _database.GetCollection<TCollection>(typeof(TCollection).Name + "s");
+
+                try
+                {
+                    await collection.ReplaceOneAsync(x => x.Id == item.Id, item, new ReplaceOptions() { IsUpsert = true }).ConfigureAwait(false);
                 }
                 catch (Exception e)
                 {

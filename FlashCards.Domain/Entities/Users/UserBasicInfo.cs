@@ -1,6 +1,8 @@
-﻿namespace FlashCards.Domain.Entities.Users
+﻿using FlashCards.Domain.Entities.Interfaces;
+
+namespace FlashCards.Domain.Entities.Users
 {
-    public class UserBasicInfo
+    public class UserBasicInfo : IIdentity
     {
         public string? Id { get; set; }
         public string Username { get; set; } = null!;
