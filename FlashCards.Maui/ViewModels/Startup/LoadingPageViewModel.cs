@@ -36,7 +36,7 @@ namespace FlashCards.Maui.ViewModels.Startup
                 if (jsonToken.ValidTo < _dateTimeProvider.UtcNow)
                 {
                     await Shell.Current.DisplayAlert("User session expired.", "Sign In again to continue.", "OK");
-                    await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 }
 
                 var userInfo = JsonConvert.DeserializeObject<UserBasicInfo>(userDetailsStr);
