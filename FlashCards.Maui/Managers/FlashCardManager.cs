@@ -20,7 +20,7 @@ namespace FlashCards.Maui.Managers
 
         public async Task<FlashCardResponse> CreateFlashCard(CreateFlashCardRequest request)
         {
-            var command = new CreateFlashCardCommand(request.Word, request.WordTranslation, request.Description, new List<Tag>());
+            var command = new CreateFlashCardCommand(request.UserId, request.Word, request.WordTranslation, request.Description, new List<Tag>());
 
             var flashCardResult = await _mediator.Send(command);
 
@@ -37,7 +37,7 @@ namespace FlashCards.Maui.Managers
 
         public async Task<FlashCardResponse> UpdateFlashCard(UpdateFlashCardRequest request)
         {
-            var command = new UpdateFlashCardCommand(request.Id, request.Word, request.WordTranslation, request.Description, new List<Tag>());
+            var command = new UpdateFlashCardCommand(request.Id, request.UserId, request.Word, request.WordTranslation, request.Description, new List<Tag>());
 
             var flashCardResult = await _mediator.Send(command);
 

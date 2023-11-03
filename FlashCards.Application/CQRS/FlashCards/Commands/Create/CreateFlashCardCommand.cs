@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Create
 {
     public record CreateFlashCardCommand(
+        string UserId,
         string Word,
         string WordTranslation,
         string Description,

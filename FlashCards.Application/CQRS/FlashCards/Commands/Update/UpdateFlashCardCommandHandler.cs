@@ -11,14 +11,14 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Update
     public class UpdateFlashCardCommandHandler : IRequestHandler<UpdateFlashCardCommand, FlashCardResult>
     {
         private readonly ILogger<UpdateFlashCardCommandHandler> _logger;
-        private readonly IOfflineGenericRepository<FlashCard> _offlineFlashCardRepository;
+        private readonly IOnlineGenericRepository<FlashCard> _onlineFlashCardRepository;
 
         public UpdateFlashCardCommandHandler(
             ILogger<UpdateFlashCardCommandHandler> logger,
-            IOfflineGenericRepository<FlashCard> offlineFlashCardRepository)
+            IOnlineGenericRepository<FlashCard> onlineFlashCardRepository)
         {
             _logger = logger;
-            _offlineFlashCardRepository = offlineFlashCardRepository;
+            _onlineFlashCardRepository = onlineFlashCardRepository;
         }
 
         public async Task<FlashCardResult> Handle(UpdateFlashCardCommand command, CancellationToken cancellationToken)
@@ -26,13 +26,14 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Update
             var flashCard = new FlashCard
             {
                 Id = command.Id,
+                UserId = command.UserId,
                 Word = command.Word,
                 WordTranslation = command.WordTranslation,
                 Description = command.Description,
                 Tags = command.Tags
             };
 
-            await _offlineFlashCardRepository.UpdateItemAsync(flashCard);
+            await _onlineFlashCardRepository.UpdateItemAsync(flashCard);
 
             return new FlashCardResult(flashCard.Id, flashCard.UserId ?? "", flashCard.User ?? new UserBasicInfo(), flashCard.Word, flashCard.WordTranslation, flashCard.Description, flashCard.Tags);
         }

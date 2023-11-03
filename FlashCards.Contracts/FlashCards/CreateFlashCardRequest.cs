@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace FlashCards.Contracts.FlashCards
 {
     public record CreateFlashCardRequest(
+        string UserId,
         string Word,
         string WordTranslation,
         string Description,

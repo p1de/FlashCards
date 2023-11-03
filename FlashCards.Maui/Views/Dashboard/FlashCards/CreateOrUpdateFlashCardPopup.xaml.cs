@@ -19,8 +19,8 @@ public partial class CreateOrUpdateFlashCardPopup : Popup
         InitializeComponent();
         submitButtonText.Text = "Update flashcard";
         word.Text = flashCardToEdit.Word;
-        wordTranslation.Text = flashCardToEdit.WordTranslation.ToString();
-        description.Text = flashCardToEdit.Description.ToString();
+        wordTranslation.Text = flashCardToEdit.WordTranslation;
+        description.Text = flashCardToEdit.Description;
         FlashCard = flashCardToEdit;
     }
 

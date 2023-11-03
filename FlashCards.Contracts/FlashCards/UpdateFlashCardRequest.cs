@@ -8,6 +8,7 @@ namespace FlashCards.Contracts.FlashCards
 {
     public record UpdateFlashCardRequest(
         string Id,
+        string UserId,
         string Word,
         string WordTranslation,
         string Description,

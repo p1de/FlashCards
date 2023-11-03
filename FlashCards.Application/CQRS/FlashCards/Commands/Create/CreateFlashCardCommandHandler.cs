@@ -11,28 +11,34 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Create
     public class CreateFlashCardCommandHandler : IRequestHandler<CreateFlashCardCommand, FlashCardResult>
     {
         private readonly ILogger<CreateFlashCardCommandHandler> _logger;
-        private readonly IOfflineGenericRepository<FlashCard> _offlineFlashCardRepository;
+        private readonly IOnlineGenericRepository<FlashCard> _onlineFlashCardRepository;
+        private readonly IOnlineGenericRepository<User> _onlineUserRepository;
 
         public CreateFlashCardCommandHandler(
             ILogger<CreateFlashCardCommandHandler> logger,
-            IOfflineGenericRepository<FlashCard> offlineFlashCardRepository)
+            IOnlineGenericRepository<FlashCard> onlineFlashCardRepository,
+            IOnlineGenericRepository<User> onlineUserRepository)
         {
             _logger = logger;
-            _offlineFlashCardRepository = offlineFlashCardRepository;
+            _onlineFlashCardRepository = onlineFlashCardRepository;
+            _onlineUserRepository = onlineUserRepository;
         }
 
         public async Task<FlashCardResult> Handle(CreateFlashCardCommand command, CancellationToken cancellationToken)
         {
+            var user = await _onlineUserRepository.GetItemByKeyAsync("Id", command.UserId);
             var flashCard = new FlashCard
             {
                 Id = Guid.NewGuid().ToString(),
+                UserId = command.UserId,
+                User = new UserBasicInfo(user),
                 Word = command.Word,
                 WordTranslation = command.WordTranslation,
                 Description = command.Description,
                 Tags = command.Tags
             };
 
-            await _offlineFlashCardRepository.AddItemAsync(flashCard);
+            await _onlineFlashCardRepository.AddItemAsync(flashCard);
 
             return new FlashCardResult(flashCard.Id, flashCard.UserId ?? "", flashCard.User ?? new UserBasicInfo(), flashCard.Word, flashCard.WordTranslation, flashCard.Description, flashCard.Tags);
         }

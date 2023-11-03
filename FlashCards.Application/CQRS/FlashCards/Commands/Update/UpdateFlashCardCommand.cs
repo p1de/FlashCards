@@ -12,6 +12,7 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Update
 {
     public record UpdateFlashCardCommand(
         string Id,
+        string UserId,
         string Word,
         string WordTranslation,
         string Description,

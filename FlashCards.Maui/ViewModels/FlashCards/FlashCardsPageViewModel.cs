@@ -56,6 +56,7 @@ namespace FlashCards.Maui.ViewModels.FlashCards
                 if (OperatingFlashCard.Id == Guid.Empty.ToString())
                 {
                     var createdFlashCard = await _flashCardManager.CreateFlashCard(new CreateFlashCardRequest(
+                        App.UserDetails.Id,
                         OperatingFlashCard.Word,
                         OperatingFlashCard.WordTranslation,
                         OperatingFlashCard.Description,
@@ -74,6 +75,7 @@ namespace FlashCards.Maui.ViewModels.FlashCards
                 {
                     await _flashCardManager.UpdateFlashCard(new UpdateFlashCardRequest(
                         OperatingFlashCard.Id,
+                        App.UserDetails.Id,
                         OperatingFlashCard.Word,
                         OperatingFlashCard.WordTranslation,
                         OperatingFlashCard.Description,
