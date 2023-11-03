@@ -3,11 +3,11 @@ using FlashCards.Infrastructure.Common.Persistance.Interfaces;
 
 namespace FlashCards.Infrastructure.Common.Persistance
 {
-    public class GenericRepository<TCollection> : IGenericRepository<TCollection> where TCollection : class
+    public class OnlineGenericRepository<TCollection> : IOnlineGenericRepository<TCollection> where TCollection : class, new()
     {
-        private readonly IDbContext _context;
+        private readonly IOnlineDbContext _context;
 
-        public GenericRepository(IDbContext context)
+        public OnlineGenericRepository(IOnlineDbContext context)
         {
             _context = context;
         }
@@ -17,7 +17,7 @@ namespace FlashCards.Infrastructure.Common.Persistance
             return await _context.GetAllAsync<TCollection>();
         }
 
-        public async Task<TCollection> GetItemByKeyAsync<TFilterType>(string keyName, TFilterType filter) where TFilterType : class
+        public async Task<TCollection> GetItemByKeyAsync<TFilterType>(string keyName, TFilterType filter)
         {
             return await _context.GetItemByKeyAsync<TCollection, TFilterType>(keyName, filter);
         }
