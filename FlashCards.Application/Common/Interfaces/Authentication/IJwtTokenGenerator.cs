@@ -2,6 +2,6 @@
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateJwtToken(Guid userId, string username);
+        string GenerateJwtToken(string userId, string username);
     }
 }
