@@ -12,6 +12,7 @@ namespace FlashCards.Maui
         public static IServiceCollection AddManagers(this IServiceCollection services)
         {
             services.AddSingleton<IAuthenticationManager, Managers.AuthenticationManager>();
+            services.AddTransient<IFlashCardManager, Managers.FlashCardManager>();
 
             return services;
         }
