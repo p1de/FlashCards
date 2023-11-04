@@ -34,31 +34,25 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:FlashCardResponse">
-                        <Border Stroke="White"
-                                StrokeThickness="1"
-                                Background="{StaticResource Secondary}"
-                                HorizontalOptions="Center"
-                                Margin="0,0,10,0">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
-                            </Border.StrokeShape>
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
-                                  ColumnDefinitions="*, Auto"
-                                  RowSpacing="2"
-                                  Padding="10"
-                                  Margin="0,0,10,0"
-                                  BackgroundColor="{StaticResource Secondary}">
-                                <Label Grid.Row="0"
-                                       Grid.Column="0"
-                                       Text="{Binding Word}"
-                                       FontAttributes="Bold" />
-                                <Label Grid.Row="1"
-                                       Grid.Column="0"
-                                       Text="{Binding WordTranslation}"
-                                       FontSize="12"
-                                       FontAttributes="Bold" />
-                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding Description}" FontSize="12" FontAttributes="Bold" />
-                                <HorizontalStackLayout Grid.Row="3" Spacing="5">
+                        <Border Stroke="White" StrokeShape="RoundRectangle 10,10,10,10" Padding="5" Background="{StaticResource Secondary}" Margin="0,0,10,0">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="0,0" Radius="10" Opacity="0.8"/>
+                            </Border.Shadow>
+                            <StackLayout Orientation="Vertical" Spacing="2">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Word: " FontAttributes="Bold"/>
+                                    <Label Text="{Binding Word}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Word translation: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding WordTranslation}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Description: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding Description}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+
+                                <HorizontalStackLayout Spacing="5">
                                     <Button Grid.Row="3" Grid.Column="0" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=ShareOrUnshareFlashCardCommand}"
                                         CommandParameter="{Binding Id}"
@@ -83,16 +77,12 @@
                                             CommandParameter="{Binding Id}"
                                             />
                                 </HorizontalStackLayout>
-                                <StackLayout Grid.Row="3"
-                                             Grid.ColumnSpan="2"
-                                             Orientation="Vertical" >
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <Label Text="{Binding}" />
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
-                                </StackLayout>
-                            </Grid>
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding}" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

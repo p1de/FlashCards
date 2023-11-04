@@ -14,12 +14,15 @@
         <Grid Grid.Row="1" RowDefinitions="*, Auto">
             <CollectionView Grid.Row="0" ItemsSource="{Binding FlashCards}" Margin="0,10,0,0">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:FlashCard">
-                        <Frame BorderColor="White" CornerRadius="10" Background="{StaticResource Secondary}" Margin="0,0,10,0">
-                            <StackLayout Orientation="Vertical" Spacing="5">
+                        <Border Stroke="White" StrokeShape="RoundRectangle 10,10,10,10" Padding="5" Background="{StaticResource Secondary}" Margin="0,0,10,0">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="0,0" Radius="10" Opacity="0.8"/>
+                            </Border.Shadow>
+                            <StackLayout Orientation="Vertical" Spacing="2">
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <Label Text="Word: " FontAttributes="Bold"/>
                                     <Label Text="{Binding Word}" VerticalOptions="Center"/>
@@ -37,7 +40,7 @@
                                     <Label Text="{Binding User.Username}" VerticalOptions="Center" FontSize="12"/>
                                 </StackLayout>
                             </StackLayout>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
