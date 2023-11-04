@@ -10,14 +10,14 @@ public partial class CreateOrUpdateFlashCardPopup : Popup
     public CreateOrUpdateFlashCardPopup()
     {
         InitializeComponent();
-        submitButtonText.Text = "Create flashcard";
+        submitButton.Text = "Create flashcard";
         FlashCard = new FlashCard();
     }
 
     public CreateOrUpdateFlashCardPopup(FlashCard flashCardToEdit)
     {
         InitializeComponent();
-        submitButtonText.Text = "Update flashcard";
+        submitButton.Text = "Update flashcard";
         word.Text = flashCardToEdit.Word;
         wordTranslation.Text = flashCardToEdit.WordTranslation;
         description.Text = flashCardToEdit.Description;

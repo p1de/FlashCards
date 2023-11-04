@@ -18,7 +18,7 @@
             <Entry x:Name="description" Placeholder="Description" WidthRequest="120"/>
         </VerticalStackLayout>
         <Button
-            x:Name="submitButtonText"
+            x:Name="submitButton"
             Clicked="CreateOrUpdateFlashCard"
             />
     </VerticalStackLayout>
