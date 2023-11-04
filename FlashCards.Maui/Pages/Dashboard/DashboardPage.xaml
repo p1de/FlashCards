@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FlashCards.Maui.ViewModels.Dashboard"
+             xmlns:models="clr-namespace:FlashCards.Domain.Entities.FlashCards;assembly=FlashCards.Domain"
+             x:DataType="vm:DashboardPageViewModel"
              x:Class="FlashCards.Maui.Pages.Dashboard.DashboardPage"
              Title="Feed">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid Margin="10,0,0,10" RowDefinitions="Auto,*">
+        <VerticalStackLayout Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="True" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label Text="{Binding IsBusyText}" VerticalOptions="Center" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        <Grid Grid.Row="1" RowDefinitions="*, Auto">
+            <CollectionView Grid.Row="0" ItemsSource="{Binding FlashCards}" Margin="0,10,0,0">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:FlashCard">
+                        <Frame BorderColor="White" CornerRadius="10" Background="{StaticResource Secondary}" Margin="0,0,10,0">
+                            <StackLayout Orientation="Vertical" Spacing="5">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Word: " FontAttributes="Bold"/>
+                                    <Label Text="{Binding Word}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Word translation: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding WordTranslation}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Description: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding Description}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="User: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding User.Username}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
 </ContentPage>
