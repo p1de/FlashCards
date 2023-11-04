@@ -1,6 +1,5 @@
 ﻿using FlashCards.Core.Application.Common.Interfaces.Authentication;
 using FlashCards.Core.Application.Common.Interfaces.Persistance;
-using FlashCards.Core.Application.CQRS.FlashCards.Commands.Share;
 using FlashCards.Core.Application.CQRS.FlashCards.Common;
 using FlashCards.Domain.Entities.FlashCards;
 using FlashCards.Domain.Entities.Users;
@@ -27,7 +26,7 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Queries.Get
             var flashCards = await _onlineFlashCardRepository.GetFilteredAsync(fc => fc.UserId == query.UserId, query.Page, query.Limit);
 
             var flashCardsResults = flashCards.Select(fc 
-                => new FlashCardResult(fc.Id, fc.UserId ?? "", fc.User ?? new UserBasicInfo(), fc.Word, fc.WordTranslation, fc.Description, fc.Tags ?? new List<Tag>())).ToList();
+                => new FlashCardResult(fc)).ToList();
 
             return flashCardsResults;
         }

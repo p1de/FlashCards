@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlashCards.Contracts.FlashCards
 {
-    public record ShareFlashCardRequest(
+    public record GetFlashCardsRequest(
         string UserId,
-        string Word,
-        string WordTranslation,
-        string Description,
-        List<string> TagsIds
+        int Page,
+        int Limit
     );
 }

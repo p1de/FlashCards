@@ -1,5 +1,4 @@
-﻿using FlashCards.Core.Application.Common.Interfaces.Authentication;
-using FlashCards.Core.Application.Common.Interfaces.Persistance;
+﻿using FlashCards.Core.Application.Common.Interfaces.Persistance;
 using FlashCards.Core.Application.CQRS.FlashCards.Common;
 using FlashCards.Domain.Entities.FlashCards;
 using FlashCards.Domain.Entities.Users;
@@ -40,7 +39,7 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Create
 
             await _onlineFlashCardRepository.AddItemAsync(flashCard);
 
-            return new FlashCardResult(flashCard.Id, flashCard.UserId ?? "", flashCard.User ?? new UserBasicInfo(), flashCard.Word, flashCard.WordTranslation, flashCard.Description, flashCard.Tags);
+            return new FlashCardResult(flashCard);
         }
     }
 }

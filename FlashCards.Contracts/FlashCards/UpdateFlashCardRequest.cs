@@ -12,6 +12,7 @@ namespace FlashCards.Contracts.FlashCards
         string Word,
         string WordTranslation,
         string Description,
-        List<string> TagsIds
+        List<string> TagsIds,
+        bool IsShared
     );
 }

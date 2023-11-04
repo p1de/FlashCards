@@ -1,5 +1,4 @@
-﻿using FlashCards.Core.Application.Common.Interfaces.Authentication;
-using FlashCards.Core.Application.Common.Interfaces.Persistance;
+﻿using FlashCards.Core.Application.Common.Interfaces.Persistance;
 using FlashCards.Core.Application.CQRS.FlashCards.Common;
 using FlashCards.Domain.Entities.FlashCards;
 using FlashCards.Domain.Entities.Users;
@@ -12,30 +11,31 @@ namespace FlashCards.Core.Application.CQRS.FlashCards.Commands.Update
     {
         private readonly ILogger<UpdateFlashCardCommandHandler> _logger;
         private readonly IOnlineGenericRepository<FlashCard> _onlineFlashCardRepository;
+        private readonly IOnlineGenericRepository<User> _onlineUserRepository;
 
         public UpdateFlashCardCommandHandler(
             ILogger<UpdateFlashCardCommandHandler> logger,
-            IOnlineGenericRepository<FlashCard> onlineFlashCardRepository)
+            IOnlineGenericRepository<FlashCard> onlineFlashCardRepository,
+            IOnlineGenericRepository<User> onlineUserRepository)
         {
             _logger = logger;
             _onlineFlashCardRepository = onlineFlashCardRepository;
+            _onlineUserRepository = onlineUserRepository;
         }
 
         public async Task<FlashCardResult> Handle(UpdateFlashCardCommand command, CancellationToken cancellationToken)
         {
-            var flashCard = new FlashCard
-            {
-                Id = command.Id,
-                UserId = command.UserId,
-                Word = command.Word,
-                WordTranslation = command.WordTranslation,
-                Description = command.Description,
-                Tags = command.Tags
-            };
+            var flashCard = await _onlineFlashCardRepository.GetItemByKeyAsync("Id", command.Id);
+            
+            flashCard.Word = command.Word;
+            flashCard.WordTranslation = command.WordTranslation;
+            flashCard.Description = command.Description;
+            flashCard.Tags = command.Tags;
+            flashCard.IsShared = command.IsShared;
 
             await _onlineFlashCardRepository.UpdateItemAsync(flashCard);
 
-            return new FlashCardResult(flashCard.Id, flashCard.UserId ?? "", flashCard.User ?? new UserBasicInfo(), flashCard.Word, flashCard.WordTranslation, flashCard.Description, flashCard.Tags);
+            return new FlashCardResult(flashCard);
         }
     }
 }

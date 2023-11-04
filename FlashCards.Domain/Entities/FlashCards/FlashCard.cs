@@ -1,6 +1,5 @@
 ﻿using FlashCards.Domain.Entities.Interfaces;
 using FlashCards.Domain.Entities.Users;
-using MongoDB.Bson.Serialization.Attributes;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
@@ -17,9 +16,9 @@ namespace FlashCards.Domain.Entities.FlashCards
         public string Word { get; set; } = string.Empty;
         public string WordTranslation { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public bool IsShared { get; set; }
 
         [ManyToMany(typeof(FlashCardTag))]
         public List<Tag>? Tags { get; set; }
-        public FlashCard? Clone() => MemberwiseClone() as FlashCard;
     }
 }
