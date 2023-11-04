@@ -35,7 +35,7 @@ public partial class FlashCardsPage : ContentPage
             _viewModel.OperatingFlashCard = (FlashCard)result;
             try 
             {
-                await _viewModel.CreateFlashCardAsync();
+                await _viewModel.CreateOrUpdateFlashCardAsync();
             }
             catch (Exception)
             {

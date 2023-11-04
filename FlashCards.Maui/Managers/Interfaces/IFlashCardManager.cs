@@ -1,5 +1,6 @@
 ﻿using FlashCards.Contracts.FlashCards;
 using FlashCards.Core.Application.CQRS.FlashCards.Queries.Get;
+using FlashCards.Domain.Entities.FlashCards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ namespace FlashCards.Maui.Managers.Interfaces
     public interface IFlashCardManager
     {
         Task<FlashCardResponse> CreateFlashCard(CreateFlashCardRequest request);
-        Task<List<FlashCardResponse>> GetFlashCards(GetFlashCardsQuery request);
-        Task<FlashCardResponse> ShareFlashCard(ShareFlashCardRequest request);
+        Task<bool> DeleteFlashCard(DeleteFlashCardRequest request);
+        Task<List<FlashCardResponse>> GetFlashCards(GetFlashCardsRequest request);
+        Task<List<FlashCardResponse>> GetFilteredFlashCards(GetFilteredFlashCardsRequest<FlashCard> request);
         Task<FlashCardResponse> UpdateFlashCard(UpdateFlashCardRequest request);
     }
 }

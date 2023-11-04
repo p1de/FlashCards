@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FlashCards.Contracts.FlashCards;
 using FlashCards.Core.Application.CQRS.FlashCards.Queries.Get;
 using FlashCards.Domain.Entities.FlashCards;
+using FlashCards.Domain.Helpers;
 using FlashCards.Maui.Managers.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -30,7 +31,7 @@ namespace FlashCards.Maui.ViewModels.FlashCards
         {
             await ExecuteAsync(async () =>
             {
-                var flashCards = await _flashCardManager.GetFlashCards(new GetFlashCardsQuery(App.UserDetails?.Id, Page, 20));
+                var flashCards = await _flashCardManager.GetFlashCards(new GetFlashCardsRequest(App.UserDetails?.Id, Page, 20));
                 Page += 1;
                 FlashCards = new ObservableCollection<FlashCard>(flashCards.Select(fc => new FlashCard()
                 {
@@ -38,18 +39,19 @@ namespace FlashCards.Maui.ViewModels.FlashCards
                     Word = fc.Word,
                     WordTranslation = fc.WordTranslation,
                     Description = fc.Description,
-                    UserId = fc.UserId
+                    UserId = fc.UserId,
+                    IsShared = fc.IsShared,
                 }));
             }, "Loading Flashcards...");
         }
 
         [RelayCommand]
-        public async Task CreateFlashCardAsync()
+        public async Task CreateOrUpdateFlashCardAsync()
         {
             if (OperatingFlashCard is null)
                 return;
 
-            var isBusyText = OperatingFlashCard.Id == Guid.Empty.ToString() ? "Creating flashcard..." : "Updating existing flashcard...";
+            var isBusyText = OperatingFlashCard.Id == Guid.Empty.ToString() ? "Creating Flashcard..." : "Updating existing Flashcard...";
 
             await ExecuteAsync(async () =>
             {
@@ -79,9 +81,10 @@ namespace FlashCards.Maui.ViewModels.FlashCards
                         OperatingFlashCard.Word,
                         OperatingFlashCard.WordTranslation,
                         OperatingFlashCard.Description,
-                        OperatingFlashCard.Tags?.Select(t => t.Id).ToList()));
+                        OperatingFlashCard.Tags?.Select(t => t.Id).ToList(),
+                        OperatingFlashCard.IsShared));
 
-                    var flashCardCopy = OperatingFlashCard.Clone();
+                    var flashCardCopy = OperatingFlashCard.CloneJson();
 
                     var index = FlashCards.IndexOf(OperatingFlashCard);
 
@@ -90,6 +93,51 @@ namespace FlashCards.Maui.ViewModels.FlashCards
                 }
                 SetOperatingFlashCardCommand.Execute(new());
             }, isBusyText);
+        }
+
+        [RelayCommand]
+        private async Task ShareOrUnshareFlashCardAsync(string id)
+        {           
+            var flashCard = FlashCards.FirstOrDefault(fc => fc.Id == id);
+            var isBusyText = flashCard.IsShared ? "Unsharing Flashcard..." : "Sharing Flashcard...";
+
+            await ExecuteAsync(async () =>
+            {
+                var response = await _flashCardManager.UpdateFlashCard(new UpdateFlashCardRequest(
+                    id,
+                    App.UserDetails.Id,
+                    flashCard.Word,
+                    flashCard.WordTranslation,
+                    flashCard.Description,
+                    flashCard.Tags?.Select(t => t.Id).ToList(),
+                    !flashCard.IsShared));
+
+                flashCard.IsShared = response.IsShared;
+
+                var flashCardCopy = flashCard.CloneJson();
+
+                var index = FlashCards.IndexOf(flashCard);
+
+                FlashCards.RemoveAt(index);
+                FlashCards.Insert(index, flashCardCopy);
+            }, isBusyText);
+        }
+
+        [RelayCommand]
+        private async Task DeleteFlashCardAsync(string id)
+        {
+            await ExecuteAsync(async () =>
+            {
+                if (await _flashCardManager.DeleteFlashCard(new DeleteFlashCardRequest(id)))
+                {
+                    var product = FlashCards.FirstOrDefault(p => p.Id == id);
+                    FlashCards.Remove(product);
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Delete Error", "Flashcard was not deleted", "Ok");
+                }
+            }, "Deleting Flashcard...");
         }
 
         private async Task ExecuteAsync(Func<Task> operation, string? isBusyText = null)

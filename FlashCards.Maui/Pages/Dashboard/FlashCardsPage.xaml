@@ -36,7 +36,7 @@
                     <DataTemplate x:DataType="models:FlashCardResponse">
                         <Border Stroke="White"
                                 StrokeThickness="1"
-                                Background="DarkOrange"
+                                Background="{StaticResource Secondary}"
                                 HorizontalOptions="Center"
                                 Margin="0,0,10,0">
                             <Border.StrokeShape>
@@ -47,7 +47,7 @@
                                   RowSpacing="2"
                                   Padding="10"
                                   Margin="0,0,10,0"
-                                  BackgroundColor="DarkOrange">
+                                  BackgroundColor="{StaticResource Secondary}">
                                 <Label Grid.Row="0"
                                        Grid.Column="0"
                                        Text="{Binding Word}"
@@ -59,11 +59,28 @@
                                        FontAttributes="Bold" />
                                 <Label Grid.Row="2" Grid.Column="0" Text="{Binding Description}" FontSize="12" FontAttributes="Bold" />
                                 <HorizontalStackLayout Grid.Row="3" Spacing="5">
-                                    <Button Grid.Row="3" Grid.Column="0" Text="Edit" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=SetOperatingFlashCardCommand}"
-                                            CommandParameter="{Binding .}" Clicked="ShowCreateOrUpdateFlashCardPopup"
-                                            />
-                                    <Button Grid.Row="3" Grid.Column="0" Text="Delete" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12"
+                                    <Button Grid.Row="3" Grid.Column="0" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=ShareOrUnshareFlashCardCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        >
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Text" Value="Share"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding IsShared}" Value="True">
+                                                        <Setter Property="Text" Value="Unshare"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Grid.Row="3" Grid.Column="0" Text="Edit" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=SetOperatingFlashCardCommand}"
+                                        CommandParameter="{Binding .}" Clicked="ShowCreateOrUpdateFlashCardPopup"
+                                        />
+                                    <Button Grid.Row="3" Grid.Column="0" Text="Delete" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=DeleteFlashCardCommand}"
+                                            CommandParameter="{Binding Id}"
                                             />
                                 </HorizontalStackLayout>
                                 <StackLayout Grid.Row="3"
