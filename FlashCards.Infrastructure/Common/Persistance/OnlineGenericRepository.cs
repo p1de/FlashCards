@@ -38,5 +38,10 @@ namespace FlashCards.Infrastructure.Common.Persistance
         {
             return await _context.UpdateItemAsync(item);
         }
+
+        public async Task<bool> DeleteItemByIdAsync(string id)
+        {
+            return await _context.DeleteItemByIdAsync<TCollection>(id);
+        }
     }
 }

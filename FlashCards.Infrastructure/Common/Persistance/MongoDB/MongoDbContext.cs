@@ -149,5 +149,32 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
                 return false;
             }
         }
+
+        public async Task<bool> DeleteItemByIdAsync<TCollection>(string id) where TCollection : class, IIdentity, new()
+        {
+            NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+            if (accessType == NetworkAccess.Internet)
+            {
+                IMongoCollection<TCollection> collection;
+                collection = _database.GetCollection<TCollection>(typeof(TCollection).Name + "s");
+
+                try
+                {
+                    await collection.DeleteOneAsync(x => x.Id == id).ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    return false;
+                    throw;
+                }
+
+                return true;
+            }
+            else
+            {
+                _logger.LogWarning("No internet connection, changes were made locally only.");
+                return false;
+            }
+        }
     }
 }

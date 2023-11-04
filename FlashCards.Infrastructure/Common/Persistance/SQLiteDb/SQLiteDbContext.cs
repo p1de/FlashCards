@@ -47,6 +47,11 @@ namespace FlashCards.Infrastructure.Common.Persistance.SQLiteDb
             return await Execute<TCollection, bool>(async () => await _database.UpdateAsync(item) > 0);
         }
 
+        public async Task<bool> DeleteItemByIdAsync<TCollection>(string id) where TCollection : class, IIdentity, new()
+        {
+            return await Execute<TCollection, bool>(async () => await _database.DeleteAsync<TCollection>(id) > 0);
+        }
+
         private async Task CreateTableIfNotExistsAsync<TCollection>() where TCollection : class, IIdentity, new()
         {
             await _database.CreateTableAsync<TCollection>();

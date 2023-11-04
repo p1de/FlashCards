@@ -14,5 +14,7 @@ namespace FlashCards.Core.Application.Common.Interfaces.Persistance
         Task<IEnumerable<TCollection>> GetFilteredAsync(Expression<Func<TCollection, bool>> predicate, int page, int limit);
 
         Task<bool> UpdateItemAsync(TCollection item);
+
+        Task<bool> DeleteItemByIdAsync(string id);
     }
 }
