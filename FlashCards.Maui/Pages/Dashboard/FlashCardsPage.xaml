@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"        
+             xmlns:vm="clr-namespace:FlashCards.Maui.ViewModels.FlashCards"
+             xmlns:models="clr-namespace:FlashCards.Contracts.FlashCards;assembly=FlashCards.Contracts"
+             x:DataType="vm:FlashCardsPageViewModel"
+             x:Class="FlashCards.Maui.Pages.Dashboard.FlashCardsPage">
+    <Grid Margin="10,0,0,10" RowDefinitions="Auto,*">
+
+        <VerticalStackLayout Grid.RowSpan="2"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="True"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+            <Label Text="{Binding IsBusyText}"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <Label Grid.Row="0"
+               Text="Flashcards"
+               FontAttributes="Bold"
+               FontSize="18"
+               Padding="10"/>
+        <Grid Grid.Row="1"
+              RowDefinitions="*, Auto">
+            <CollectionView Grid.Row="0"
+                            ItemsSource="{Binding FlashCards}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10"
+                                       Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:FlashCardResponse">
+                        <Border Stroke="White" StrokeShape="RoundRectangle 10,10,10,10" Padding="5" Background="{StaticResource Secondary}" Margin="0,0,10,0">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="0,0" Radius="10" Opacity="0.8"/>
+                            </Border.Shadow>
+                            <StackLayout Orientation="Vertical" Spacing="2">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Word: " FontAttributes="Bold"/>
+                                    <Label Text="{Binding Word}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Word translation: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding WordTranslation}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Description: " FontAttributes="Bold" FontSize="12"/>
+                                    <Label Text="{Binding Description}" VerticalOptions="Center" FontSize="12"/>
+                                </StackLayout>
+
+                                <HorizontalStackLayout Spacing="5">
+                                    <Button Grid.Row="3" Grid.Column="0" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=ShareOrUnshareFlashCardCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        >
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Text" Value="Share"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding IsShared}" Value="True">
+                                                        <Setter Property="Text" Value="Unshare"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Grid.Row="3" Grid.Column="0" Text="Edit" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=SetOperatingFlashCardCommand}"
+                                        CommandParameter="{Binding .}" Clicked="ShowCreateOrUpdateFlashCardPopup"
+                                        />
+                                    <Button Grid.Row="3" Grid.Column="0" Text="Delete" Padding="0" WidthRequest="70" HeightRequest="25" FontSize="12" BackgroundColor="{StaticResource Tertiary}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FlashCardsPageViewModel}}, Path=DeleteFlashCardCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            />
+                                </HorizontalStackLayout>
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding}" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center">
+                            <Label Text="No Flashcards Found"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="Try creating a flashcard by clicking the '+' button below"/>
+                        </VerticalStackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </Grid>
+        <FlexLayout
+            Grid.Row="2"
+            AlignItems="End"
+            JustifyContent="End"
+            Wrap="NoWrap">
+            <Button
+                AbsoluteLayout.LayoutBounds="1,1,60,60"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                CornerRadius="50"
+                HeightRequest="60"
+                BackgroundColor="{StaticResource Primary}"
+                WidthRequest="60"
+                Margin="0,0,5,5"
+                FontSize="30"
+                Clicked="ShowCreateOrUpdateFlashCardPopup">
+                <Button.Text>+</Button.Text>
+            </Button>
+        </FlexLayout>
+    </Grid>
+</ContentPage>

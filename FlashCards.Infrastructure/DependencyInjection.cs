@@ -2,12 +2,11 @@
 using FlashCards.Core.Application.Common.Interfaces.Persistance;
 using FlashCards.Core.Application.Common.Interfaces.Services;
 using FlashCards.Infrastructure.Authentication;
-using FlashCards.Infrastructure.Common.Interfaces;
 using FlashCards.Infrastructure.Common.Persistance;
 using FlashCards.Infrastructure.Common.Persistance.Interfaces;
-using FlashCards.Infrastructure.Common.Persistance.MongoDB;
+using FlashCards.Infrastructure.Common.Persistance.MongoDb;
+using FlashCards.Infrastructure.Common.Persistance.SQLiteDb;
 using FlashCards.Infrastructure.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace FlashCards.Infrastructure
 {
@@ -17,9 +16,10 @@ namespace FlashCards.Infrastructure
         {
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-            services.AddSingleton<IAppSettings, AppSettingsMongoDb>();
-            services.AddSingleton<IDbContext, MongoDbContext>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddSingleton<IOnlineDbContext, MongoDbContext>();
+            services.AddSingleton<IOfflineDbContext, SQLiteDbContext>();
+            services.AddScoped(typeof(IOnlineGenericRepository<>), typeof(OnlineGenericRepository<>));
+            services.AddScoped(typeof(IOfflineGenericRepository<>), typeof(OfflineGenericRepository<>));
 
             return services;
         }

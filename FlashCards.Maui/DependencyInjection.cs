@@ -3,6 +3,7 @@ using FlashCards.Maui.Pages.Dashboard;
 using FlashCards.Maui.Pages.Startup;
 using FlashCards.Maui.ViewModels;
 using FlashCards.Maui.ViewModels.Dashboard;
+using FlashCards.Maui.ViewModels.FlashCards;
 using FlashCards.Maui.ViewModels.Startup;
 
 namespace FlashCards.Maui
@@ -12,6 +13,7 @@ namespace FlashCards.Maui
         public static IServiceCollection AddManagers(this IServiceCollection services)
         {
             services.AddSingleton<IAuthenticationManager, Managers.AuthenticationManager>();
+            services.AddTransient<IFlashCardManager, Managers.FlashCardManager>();
 
             return services;
         }
@@ -22,11 +24,13 @@ namespace FlashCards.Maui
             services.AddTransient<LoginPage>();
             services.AddTransient<RegisterPage>();
             services.AddTransient<DashboardPage>();
+            services.AddTransient<FlashCardsPage>();
 
             services.AddTransient<LoadingPageViewModel>();
             services.AddTransient<LoginPageViewModel>();
             services.AddTransient<RegisterPageViewModel>();
             services.AddTransient<DashboardPageViewModel>();
+            services.AddTransient<FlashCardsPageViewModel>();
 
             return services;
         }

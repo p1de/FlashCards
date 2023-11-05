@@ -11,12 +11,12 @@ namespace FlashCards.Core.Application.CQRS.Authentication.Queries.Login
     {
         private readonly ILogger<LoginQueryHandler> _logger;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IGenericRepository<User> _userRepository;
+        private readonly IOnlineGenericRepository<User> _userRepository;
 
         public LoginQueryHandler(
             ILogger<LoginQueryHandler> logger,
             IJwtTokenGenerator jwtTokenGenerator,
-            IGenericRepository<User> userRepository)
+            IOnlineGenericRepository<User> userRepository)
         {
             _logger = logger;
             _jwtTokenGenerator = jwtTokenGenerator;
@@ -28,7 +28,7 @@ namespace FlashCards.Core.Application.CQRS.Authentication.Queries.Login
             if (await _userRepository.GetItemByKeyAsync("Email", query.Email) is not User user || (user.Password != query.Password))
             {
                 _logger.LogError("Invalid email or password");
-                return new AuthenticationResult(Guid.Empty, string.Empty, query.Email, string.Empty);
+                return new AuthenticationResult(Guid.Empty.ToString(), string.Empty, query.Email, string.Empty);
             }
 
             var token = _jwtTokenGenerator.GenerateJwtToken(user.Id, user.Username);

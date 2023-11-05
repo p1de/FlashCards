@@ -1,5 +1,6 @@
 ﻿using FlashCards.Core.Application.Common.Interfaces.Authentication;
 using FlashCards.Core.Application.Common.Interfaces.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,17 +11,19 @@ namespace FlashCards.Infrastructure.Authentication
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly IConfiguration _configuration;
 
-        public JwtTokenGenerator(IDateTimeProvider dateTimeProvider)
+        public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IConfiguration configuration)
         {
             _dateTimeProvider = dateTimeProvider;
+            _configuration = configuration;
         }
 
-        public string GenerateJwtToken(Guid userId, string username)
+        public string GenerateJwtToken(string userId, string username)
         {
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes("secretliest-secret-key-so-its-very-very-secret-2137")),
+                    Encoding.UTF8.GetBytes(_configuration["Secrets:JwtTokenSecret"])),
                 SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

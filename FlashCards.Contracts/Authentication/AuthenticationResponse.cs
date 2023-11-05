@@ -1,7 +1,7 @@
 ﻿namespace FlashCards.Contracts.Authentication
 {
     public record AuthenticationResponse(
-        Guid Id,
+        string Id,
         string Username,
         string Email,
         string Token

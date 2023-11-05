@@ -36,8 +36,8 @@
             />
 
         <ShellContent
-            Title="Your Flash Cards"
-            ContentTemplate="{DataTemplate dashboardPages:DashboardPage}"
+            Title="Your Flashcards"
+            ContentTemplate="{DataTemplate dashboardPages:FlashCardsPage}"
             />
 
         <ShellContent

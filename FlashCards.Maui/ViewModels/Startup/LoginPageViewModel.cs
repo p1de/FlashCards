@@ -38,6 +38,7 @@ namespace FlashCards.Maui.ViewModels
                     {
                         var userDetails = new UserBasicInfo()
                         {
+                            Id = response.Id,
                             Email = response.Email,
                             Username = response.Username
                         };

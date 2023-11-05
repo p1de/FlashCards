@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using FlashCards.Domain.Entities.Users;
 using FlashCards.Maui.Pages.Startup;
 using System;
 using System.Collections.Generic;

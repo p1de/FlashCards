@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="FlashCards.Maui.Views.Dashboard.FlashCards.CreateOrUpdateFlashCardPopup">
+
+    <VerticalStackLayout Spacing="10">
+        <VerticalStackLayout>
+            <Label Text="Word"/>
+            <Entry x:Name="word" Placeholder="Word to translate" WidthRequest="120"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Word translation"/>
+            <Entry x:Name="wordTranslation" Placeholder="Translated word" WidthRequest="120"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Description"/>
+            <Entry x:Name="description" Placeholder="Description" WidthRequest="120"/>
+        </VerticalStackLayout>
+        <Button
+            x:Name="submitButton"
+            Clicked="CreateOrUpdateFlashCard"
+            />
+    </VerticalStackLayout>
+
+</toolkit:Popup>

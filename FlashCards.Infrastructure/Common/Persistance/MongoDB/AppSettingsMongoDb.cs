@@ -1,9 +1,8 @@
-﻿using FlashCards.Infrastructure.Common.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace FlashCards.Infrastructure.Common.Persistance.MongoDB
+namespace FlashCards.Infrastructure.Common.Persistance.MongoDb
 {
-    public class AppSettingsMongoDb : IAppSettings
+    public class AppSettingsMongoDb
     {
         private readonly IConfiguration _configuration;
 
@@ -13,6 +12,6 @@ namespace FlashCards.Infrastructure.Common.Persistance.MongoDB
         }
 
         public string MongoDbConnectionString => _configuration["ConnectionStrings:MongoDbConnectionString"];
-        public string MongoDBdatabase => _configuration["Databases:MongoDbDatabase"];
+        public string MongoDbDatabase => _configuration["Databases:MongoDbDatabase"];
     }
 }
