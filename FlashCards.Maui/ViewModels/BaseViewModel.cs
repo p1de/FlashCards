@@ -11,6 +11,9 @@ namespace FlashCards.Maui.ViewModels
         private string _isBusyText;
 
         [ObservableProperty]
+        private bool _isRefreshing;
+
+        [ObservableProperty]
         private string _title;
     }
 }

@@ -142,7 +142,7 @@ namespace FlashCards.Maui.ViewModels.FlashCards
 
         private async Task ExecuteAsync(Func<Task> operation, string? isBusyText = null)
         {
-            IsBusy = true;
+            IsBusy = !IsRefreshing && true;
             IsBusyText = isBusyText ?? "Processing...";
             try
             {
@@ -157,5 +157,14 @@ namespace FlashCards.Maui.ViewModels.FlashCards
 
         [RelayCommand]
         private void SetOperatingFlashCard(FlashCard? flashCard) => OperatingFlashCard = flashCard ?? new();
+
+        [RelayCommand]
+        private async Task RefreshAsync()
+        {
+            IsRefreshing = true;
+            Page = 0;
+            await LoadFlashCardsAsync();
+            IsRefreshing = false;
+        }
     }
 }

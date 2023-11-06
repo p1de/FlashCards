@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FlashCards.Contracts.FlashCards;
 using FlashCards.Domain.Entities.FlashCards;
 using FlashCards.Domain.Entities.Users;
@@ -43,7 +44,7 @@ namespace FlashCards.Maui.ViewModels.Dashboard
 
         private async Task ExecuteAsync(Func<Task> operation, string? isBusyText = null)
         {
-            IsBusy = true;
+            IsBusy = !IsRefreshing && true;
             IsBusyText = isBusyText ?? "Processing...";
             try
             {
@@ -54,6 +55,15 @@ namespace FlashCards.Maui.ViewModels.Dashboard
                 IsBusy = false;
                 IsBusyText = isBusyText ?? "Processing...";
             }
+        }
+
+        [RelayCommand]
+        private async Task RefreshAsync()
+        {
+            IsRefreshing = true;
+            Page = 0;
+            await LoadFlashCardsAsync();
+            IsRefreshing = false;
         }
     }
 }
