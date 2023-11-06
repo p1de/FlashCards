@@ -28,12 +28,4 @@
     <ProjectReference Include="..\FlashCards.Application\FlashCards.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Platforms\Android\" />
-    <Folder Include="Platforms\iOS\" />
-    <Folder Include="Platforms\MacCatalyst\" />
-    <Folder Include="Platforms\Tizen\" />
-    <Folder Include="Platforms\Windows\" />
-  </ItemGroup>
-
 </Project>

@@ -82,7 +82,7 @@ namespace FlashCards.Maui.ViewModels.FlashCards
                         OperatingFlashCard.WordTranslation,
                         OperatingFlashCard.Description,
                         OperatingFlashCard.Tags?.Select(t => t.Id).ToList(),
-                        OperatingFlashCard.IsShared));
+                        false));
 
                     var flashCardCopy = OperatingFlashCard.CloneJson();
 

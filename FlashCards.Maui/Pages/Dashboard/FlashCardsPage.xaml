@@ -7,30 +7,16 @@
              x:Class="FlashCards.Maui.Pages.Dashboard.FlashCardsPage">
     <Grid Margin="10,0,0,10" RowDefinitions="Auto,*">
 
-        <VerticalStackLayout Grid.RowSpan="2"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center"
-                             IsVisible="{Binding IsBusy}">
-            <ActivityIndicator IsRunning="True"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"/>
-            <Label Text="{Binding IsBusyText}"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"/>
+        <VerticalStackLayout Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="True" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label Text="{Binding IsBusyText}" VerticalOptions="Center" HorizontalOptions="Center"/>
         </VerticalStackLayout>
 
-        <Label Grid.Row="0"
-               Text="Flashcards"
-               FontAttributes="Bold"
-               FontSize="18"
-               Padding="10"/>
-        <Grid Grid.Row="1"
-              RowDefinitions="*, Auto">
-            <CollectionView Grid.Row="0"
-                            ItemsSource="{Binding FlashCards}">
+        <Label Grid.Row="0" Text="Flashcards" FontAttributes="Bold" FontSize="18" Padding="10"/>
+        <Grid Grid.Row="1"  RowDefinitions="*, Auto">
+            <CollectionView Grid.Row="0" ItemsSource="{Binding FlashCards}">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="10"
-                                       Orientation="Vertical"/>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:FlashCardResponse">
@@ -88,33 +74,17 @@
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
                     <ContentView>
-                        <VerticalStackLayout HorizontalOptions="Center"
-                                             VerticalOptions="Center">
-                            <Label Text="No Flashcards Found"
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   HorizontalTextAlignment="Center" />
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="No Flashcards Found" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" />
                             <Label Text="Try creating a flashcard by clicking the '+' button below"/>
                         </VerticalStackLayout>
                     </ContentView>
                 </CollectionView.EmptyView>
             </CollectionView>
         </Grid>
-        <FlexLayout
-            Grid.Row="2"
-            AlignItems="End"
-            JustifyContent="End"
-            Wrap="NoWrap">
-            <Button
-                AbsoluteLayout.LayoutBounds="1,1,60,60"
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                CornerRadius="50"
-                HeightRequest="60"
-                BackgroundColor="{StaticResource Primary}"
-                WidthRequest="60"
-                Margin="0,0,5,5"
-                FontSize="30"
-                Clicked="ShowCreateOrUpdateFlashCardPopup">
+        <FlexLayout Grid.Row="2" AlignItems="End" JustifyContent="End" Wrap="NoWrap">
+            <Button AbsoluteLayout.LayoutBounds="1,1,60,60" AbsoluteLayout.LayoutFlags="PositionProportional" CornerRadius="50" HeightRequest="60" BackgroundColor="{StaticResource Primary}"
+                WidthRequest="60" Margin="0,0,5,5" FontSize="30" Clicked="ShowCreateOrUpdateFlashCardPopup">
                 <Button.Text>+</Button.Text>
             </Button>
         </FlexLayout>
